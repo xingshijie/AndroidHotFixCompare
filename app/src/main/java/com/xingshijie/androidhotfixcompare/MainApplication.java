@@ -18,11 +18,10 @@
 package com.xingshijie.androidhotfixcompare;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
-
-import java.io.IOException;
+import com.dodola.rocoofix.RocooFix;
 
 /**
  * sample application
@@ -32,8 +31,18 @@ import java.io.IOException;
  */
 public class MainApplication extends Application {
 
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		RocooFix.applyPatch(this, Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/patch.jar");
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		//打补丁
+		RocooFix.init(this);
 	}
 }
