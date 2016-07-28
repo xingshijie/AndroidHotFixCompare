@@ -18,11 +18,9 @@
 package com.xingshijie.androidhotfixcompare;
 
 import android.app.Application;
-import android.os.Environment;
-import android.util.Log;
+import android.content.Context;
 
-
-import java.io.IOException;
+import cn.jiajixin.nuwa.Nuwa;
 
 /**
  * sample application
@@ -35,5 +33,11 @@ public class MainApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		Nuwa.init(this);
 	}
 }
