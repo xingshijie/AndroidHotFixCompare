@@ -28,9 +28,10 @@ import android.util.Log;
  * 
  */
 public class A {
+	private static final String TAG = "A";
 
 	public String getString(){
-		Log.e("","fix error");
+		Log.e(TAG, "fix error");
 		return "Hello word";
 	}
 }
