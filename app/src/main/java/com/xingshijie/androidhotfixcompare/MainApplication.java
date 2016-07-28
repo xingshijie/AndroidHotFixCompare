@@ -22,6 +22,8 @@ import android.os.Environment;
 import android.util.Log;
 
 
+import com.alipay.euler.andfix.patch.PatchManager;
+
 import java.io.IOException;
 
 /**
@@ -32,8 +34,32 @@ import java.io.IOException;
  */
 public class MainApplication extends Application {
 
+	private PatchManager mPatchManager;
+	private static final String TAG = "MainApplication";
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		mPatchManager = new PatchManager(this);
+		//升级版本之后原来版本保存的补丁会被删除
+		mPatchManager.init(BuildConfig.VERSION_NAME);//current version
+
+		Log.d(TAG, "inited.");
+
+		// load patch
+		mPatchManager.loadPatch();
+		Log.d(TAG, "apatch loaded.");
+
+		// add patch at runtime
+		try {
+			// .apatch file path
+			String patchFileString = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/out.apatch";
+			mPatchManager.addPatch(patchFileString);
+			Log.d(TAG, "apatch:" + patchFileString + " added.");
+		} catch (IOException e) {
+			Log.e(TAG, "", e);
+		}
 	}
 }
