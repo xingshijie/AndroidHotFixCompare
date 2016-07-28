@@ -31,7 +31,7 @@ public class A {
 	private static final String TAG = "A";
 
 	public String getString(){
-		Log.e(TAG, "fix error");
-		return "Hello word";
+		Log.e(TAG, "fix success");
+		return "Hello world";
 	}
 }
